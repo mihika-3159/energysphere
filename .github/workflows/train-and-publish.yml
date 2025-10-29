@@ -2,7 +2,7 @@ name: Train & Publish Model
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # daily at 2 AM UTC
+    - cron: '0 2 * * *'  # Runs daily at 2 AM UTC
   workflow_dispatch:
 
 jobs:
@@ -23,14 +23,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ml/requirements.txt
           pip install -r backend/requirements.txt
-          pip install supabase
+          pip install supabase requests
 
       - name: Generate synthetic data
-        run: python ml/synthetic_data.py --hours 2160
-  # 1 week for quick testing
+        run: python ml/synthetic_data.py --hours 2160 --out ml/syn.csv
+
+      - name: Upload synthetic data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-data
+          path: ml/syn.csv
+
+      - name: Download synthetic data artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: synthetic-data
+          path: ml/
 
       - name: Train Transformer model
-        run: python ml/advanced_transformer.py --epochs 1  # 1 epoch for fast test
+        run: python ml/advanced_transformer.py --epochs 1 --data ml/syn.csv
 
       - name: Upload model to Supabase Storage
         env:
