@@ -25,8 +25,9 @@ jobs:
           pip install -r backend/requirements.txt
           pip install supabase
 
-      - name: Generate synthetic data (fast test)
-        run: python ml/synthetic_data.py --hours 168  # 1 week for quick testing
+      - name: Generate synthetic data
+        run: python ml/synthetic_data.py --hours 2160
+  # 1 week for quick testing
 
       - name: Train Transformer model
         run: python ml/advanced_transformer.py --epochs 1  # 1 epoch for fast test
