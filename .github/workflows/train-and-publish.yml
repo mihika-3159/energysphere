@@ -1,0 +1,37 @@
+name: Train & Publish Model
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install deps
+        run: |
+          pip install -r ml/requirements.txt
+          pip install supabase
+      - name: Generate synthetic data
+        run: python ml/synthetic_data.py --hours 24*90
+      - name: Train model
+        run: python ml/advanced_transformer.py --epochs 3
+      - name: Upload model to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          MODEL_BUCKET: "models"
+        run: |
+          python - <<'PY'
+          import os, requests
+          url = f"{os.environ['SUPABASE_URL'].rstrip('/')}/storage/v1/object/{os.environ['MODEL_BUCKET']}/transformer_forecast.pt"
+          headers = {'apikey': os.environ['SUPABASE_KEY'], 'Authorization': 'Bearer ' + os.environ['SUPABASE_KEY']}
+          with open('models/transformer_forecast.pt','rb') as f:
+              r = requests.put(url, headers=headers, data=f)
+          print(r.status_code)
+          PY
