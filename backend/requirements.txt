@@ -1,11 +1,12 @@
+torch==2.3.1+cpu
+torchvision==0.18.1+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
 fastapi
 uvicorn
-pydantic
-sqlalchemy
-asyncpg
-supabase
-requests
-numpy
 pandas
-cvxpy
+numpy
+scikit-learn
 python-dotenv
+requests
+sqlalchemy
+supabase
