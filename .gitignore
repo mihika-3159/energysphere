@@ -1,3 +1,11 @@
-.env
-/venv
+# Ignore Python build and model artifacts
 __pycache__/
+*.pyc
+models/
+*.pt
+
+# Ignore environment and node files
+venv/
+.env
+node_modules/
+dist/
