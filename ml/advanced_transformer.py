@@ -10,7 +10,7 @@ from sklearn.preprocessing import MinMaxScaler
 #  MODEL DEFINITION
 # ---------------------------------------------------
 class TransformerForecast(nn.Module):
-    """A lightweight Transformer model for energy demand forecasting."""
+    """Transformer model for next-step energy demand forecasting."""
     def __init__(self, input_size=3, d_model=32, nhead=4, num_layers=2):
         super().__init__()
         self.embedding = nn.Linear(input_size, d_model)
@@ -19,18 +19,15 @@ class TransformerForecast(nn.Module):
             nhead=nhead,
             num_encoder_layers=num_layers,
             num_decoder_layers=num_layers,
-            batch_first=True  # use (batch, seq, feature)
+            batch_first=True
         )
         self.fc = nn.Linear(d_model, 1)
 
     def forward(self, x):
         x = self.embedding(x)
         x = self.transformer(x, x)
-    # predict for every timestep instead of just the last one
-        out = self.fc(x)
-        return out.squeeze(-1)
-
-
+        x = x[:, -1, :]  # use last time step representation
+        return self.fc(x).squeeze(-1)
 
 # ---------------------------------------------------
 #  TRAINING FUNCTION
