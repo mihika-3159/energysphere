@@ -26,8 +26,10 @@ class TransformerForecast(nn.Module):
     def forward(self, x):
         x = self.embedding(x)
         x = self.transformer(x, x)
-        x = x[:, -1, :]  # take last time step
-        return self.fc(x)
+    # predict for every timestep instead of just the last one
+        out = self.fc(x)
+        return out.squeeze(-1)
+
 
 
 # ---------------------------------------------------
