@@ -36,21 +36,21 @@ async def root():
 
 @app.get("/predict")
 async def predict_forecast():
-    """Generate predictions using the Transformer model"""
+    """Generate 24-hour forecast using the Transformer model"""
     try:
         # Load model
         model = TransformerForecast()
-        model.load_state_dict(torch.load(MODEL_PATH))
+        model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device("cpu")))
         model.eval()
 
-        # Generate some test synthetic input
+        # Generate synthetic input
         solar = np.linspace(40, 80, 24)
         wind = np.linspace(20, 60, 24)
         demand = solar * 0.3 + wind * 0.5 + np.random.randn(24) * 5
         test_data = np.stack([solar, wind, demand], axis=1)
-        X = torch.tensor(test_data, dtype=torch.float32).unsqueeze(0)  # batch 1
+        X = torch.tensor(test_data, dtype=torch.float32).unsqueeze(0)
 
-        # Predict next hour’s demand
+        # Predict next 24-hour demand
         with torch.no_grad():
             output = model(X)
             forecast = output.squeeze().tolist()
