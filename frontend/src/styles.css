@@ -1,0 +1,374 @@
+:root {
+  --bg: #020617;
+  --bg-elevated: #020617;
+  --card: rgba(15, 23, 42, 0.9);
+  --border: rgba(148, 163, 184, 0.25);
+  --accent: #22c55e;
+  --accent-soft: rgba(34, 197, 94, 0.15);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --danger: #ef4444;
+  --warn: #facc15;
+  --blue: #38bdf8;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000 100%);
+  color: var(--text);
+}
+
+/* ROOT LAYOUT */
+
+.es-root {
+  min-height: 100vh;
+  padding: 2.5rem 1.5rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+
+.es-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.es-header h1 {
+  font-size: 1.7rem;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.es-subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.es-header-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.es-badge {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.7);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.es-badge-green {
+  border-color: rgba(34, 197, 94, 0.5);
+  background: var(--accent-soft);
+  color: #bbf7d0;
+}
+
+.es-badge-blue {
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+/* GRID LAYOUT */
+
+.es-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+  gap: 1.5rem;
+}
+
+.es-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* CARDS */
+
+.es-card {
+  background: var(--card);
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  padding: 1.1rem 1.25rem 1.25rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(18px);
+}
+
+.es-card-wide {
+  grid-column: 1 / -1;
+}
+
+.es-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.es-card-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.es-card-header p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* STATS */
+
+.es-stats-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.es-stat span {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.es-stat strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* CHARTS & PLACEHOLDERS */
+
+.es-chart-wrapper {
+  margin-top: 0.5rem;
+}
+
+.es-placeholder {
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.es-error {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  font-size: 0.85rem;
+}
+
+/* TEXT */
+
+.es-muted {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.es-muted-small {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* RISK CARD */
+
+.es-risk-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.6rem 0 0.4rem;
+}
+
+.es-risk-tag {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.es-risk-low {
+  background: rgba(34, 197, 94, 0.15);
+  color: #bbf7d0;
+}
+
+.es-risk-medium {
+  background: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+}
+
+.es-risk-high {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fecaca;
+}
+
+.es-risk-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 1);
+  overflow: hidden;
+}
+
+.es-risk-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #facc15, #ef4444);
+}
+
+/* LIST */
+
+.es-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* CO2 CARD */
+
+.es-co2-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.7rem 0 0.6rem;
+}
+
+.es-co2-row span {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.es-co2-row strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* SLIDER */
+
+.es-slider-label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.35rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+/* INVESTMENT PANEL */
+
+.es-investment-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.es-investment-controls label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.es-investment-controls input[type="number"],
+.es-investment-controls select {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.es-investment-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.9rem;
+}
+
+.es-invest-card {
+  border-radius: 0.85rem;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.9);
+  padding: 0.75rem 0.85rem 0.9rem;
+  font-size: 0.8rem;
+}
+
+.es-invest-card h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+}
+
+.es-pill {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.18);
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+
+.es-invest-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+  color: var(--muted);
+}
+
+/* BUTTON */
+
+.es-btn-outline {
+  margin-top: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.es-btn-outline:hover {
+  border-color: var(--accent);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .es-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-investment-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .es-header-badges {
+    justify-content: flex-start;
+  }
+}
